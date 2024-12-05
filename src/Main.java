@@ -72,7 +72,7 @@ public class Main {
         int guesses = ATTEMPTS;
         int stages = 0;
         StringBuilder guessedWord = new StringBuilder();
-        String availableLetters = "";
+        String availableLetters;
         String lettersGuessed = "";
 
         while (true) {
@@ -85,15 +85,13 @@ public class Main {
             String letter = sc.nextLine().toLowerCase();
 
             lettersGuessed += letter;
-            System.out.println(lettersGuessed);
 
-            if (!Character.isLetter(letter.charAt(0))) {
+            if (!Character.isLetter(letter.charAt(0)) || letter.length() > 1) {
                 System.out.printf("Oops! '%s' is not a valid letter: \n", letter);
-                System.out.println(guessedWord);
                 continue;
             }
 
-            if (lettersGuessed.contains(letter)) {
+            if (guessedWord.toString().contains(letter)) {
                 System.out.printf("Oops! You've already guessed that letter: %s\n", guessedWord);
                 continue;
             }
@@ -102,7 +100,6 @@ public class Main {
 
             if (secret.contains(letter)) {
                 System.out.printf("Good guess: %s\n", guessedWord);
-
                 if (isWordGuessed(secret, lettersGuessed)) {
                     System.out.println("Congratulations, you won");
                     break;
@@ -124,14 +121,11 @@ public class Main {
 
     public static boolean isWordGuessed(String secret, String lettersGuessed) {
         for (int i = 0; i < secret.length(); i++) {
-            for (int j = 0; j < lettersGuessed.length(); j++) {
-                if (secret.charAt(i) == lettersGuessed.charAt(j)) {
-                    return true;
-                }
+            if (lettersGuessed.indexOf(secret.charAt(i)) == -1) {
+                return false;
             }
         }
-
-        return false;
+        return true;
     }
 
     public static void getGuessedWord(String secret, String lettersGuessed, StringBuilder guessedLetters) {
