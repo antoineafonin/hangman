@@ -5,19 +5,124 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class Main {
+    private static final int ATTEMPTS = 7;
+    private static final String[] hangmanStages = {
+            """
+        +---+
+            |
+            |
+            |
+           ===
+        """,
+            """
+        +---+
+        O   |
+            |
+            |
+           ===
+        """,
+            """
+        +---+
+        O   |
+        |   |
+            |
+           ===
+        """,
+            """
+        +---+
+        O   |
+       /|   |
+            |
+           ===
+       """,
+            """
+        +---+
+        O   |
+       /|\\  |
+            |
+           ===
+       """,
+            """
+        +---+
+        O   |
+       /|\\  |
+       /    |
+           ===
+       """,
+            """
+        +---+
+        O   |
+       /|\\  |
+       / \\  |
+           ===
+       """
+    };
+
     public static void main(String[] args) {
         String secret = getRandomWord();
-        System.out.printf("The random word is %s\n", secret);
-        String letterGuessed = "lpapahepo";
-        StringBuilder guessedLetters = new StringBuilder(letterGuessed);
 
-        System.out.println(isLetterGuessed(secret, letterGuessed));
-        getGuessedWord(secret, letterGuessed, guessedLetters);
-
-        System.out.println(guessedLetters);
+        hangman(secret);
     }
 
-    public static boolean isLetterGuessed(String secret, String lettersGuessed) {
+    public static void hangman(String secret) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Welcome to the game, Hangman!");
+        System.out.printf("I am thinking of a word that is %d letters long.\n", secret.length());
+
+        int guesses = ATTEMPTS;
+        int stages = 0;
+        StringBuilder guessedWord = new StringBuilder();
+        String availableLetters = "";
+        String lettersGuessed = "";
+
+        while (true) {
+            availableLetters = getAvailableLetters(lettersGuessed);
+            System.out.println("-------------");
+            System.out.printf("You have %d guesses left.\n", guesses);
+            System.out.printf("Available letters: %s\n", availableLetters);
+
+            System.out.print("Please guess a letter: ");
+            String letter = sc.nextLine().toLowerCase();
+
+            lettersGuessed += letter;
+            System.out.println(lettersGuessed);
+
+            if (!Character.isLetter(letter.charAt(0))) {
+                System.out.printf("Oops! '%s' is not a valid letter: \n", letter);
+                System.out.println(guessedWord);
+                continue;
+            }
+
+            if (lettersGuessed.contains(letter)) {
+                System.out.printf("Oops! You've already guessed that letter: %s\n", guessedWord);
+                continue;
+            }
+
+            getGuessedWord(secret, lettersGuessed, guessedWord);
+
+            if (secret.contains(letter)) {
+                System.out.printf("Good guess: %s\n", guessedWord);
+
+                if (isWordGuessed(secret, lettersGuessed)) {
+                    System.out.println("Congratulations, you won");
+                    break;
+                }
+            } else {
+                System.out.printf("Oops! That letter is not in my word: %s\n", guessedWord);
+                printStage(stages);
+                stages++;
+                guesses--;
+
+                if (guesses == 0) {
+                    System.out.println("-------------");
+                    System.out.printf("Sorry, you ran out of guesses. The word was %s.\n", secret);
+                    break;
+                }
+            }
+        }
+    }
+
+    public static boolean isWordGuessed(String secret, String lettersGuessed) {
         for (int i = 0; i < secret.length(); i++) {
             for (int j = 0; j < lettersGuessed.length(); j++) {
                 if (secret.charAt(i) == lettersGuessed.charAt(j)) {
@@ -43,28 +148,14 @@ public class Main {
         }
     }
 
-    public static String getAvailableLetters(String secret) {
+    public static String getAvailableLetters(String lettersGuessed) {
         StringBuilder alphabet = new StringBuilder("abcdefghijklmnopqrstuvwxyz");
-
-        for (int i = 0; i < secret.length(); i++) {
-            boolean letterFound = false;
-            for (int j = 0; j < alphabet.length(); j++) {
-                if (secret.charAt(i) == alphabet.charAt(j)) {
-                    letterFound = true;
-                    break;
-                }
-            }
-
-            if (letterFound) {
-                char letterToRemove = secret.charAt(i);
-                int indexToRemove = alphabet.indexOf(String.valueOf(letterToRemove));
-
-                if (indexToRemove != -1) {
-                    alphabet.deleteCharAt(indexToRemove);
-                }
+        for (char guessedLetter : lettersGuessed.toCharArray()) {
+            int index = alphabet.indexOf(String.valueOf(guessedLetter));
+            if (index != -1) {
+                alphabet.deleteCharAt(index);
             }
         }
-
         return alphabet.toString();
     }
 
@@ -94,7 +185,8 @@ public class Main {
         }
     }
 
-    public static void hangman(String secret) {
 
+    public static void printStage(int stage) {
+        System.out.println(hangmanStages[stage]);
     }
 }
