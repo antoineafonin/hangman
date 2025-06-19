@@ -1,21 +1,26 @@
-# Hangman Console Game in Java
+# Hangman (Console Game in Java)
 
-This is a simple console-based implementation of the classic Hangman game written in Java.  
-A random word is chosen from a file, and the user tries to guess it letter by letter within a limited number of attempts.
+This is a simple **console-based Hangman game** implemented in Java.  
+It selects a random word from a `words.txt` file and allows the user to guess the word letter by letter, following the classic rules of the game.
 
-## Features
+---
 
-- Loads a random word from a file (`words.txt`)
-- Tracks and displays available letters and guessed letters
-- Allows up to 8 incorrect guesses
-- Informs the user if the input is invalid or repeated
-- Displays progress after each guess
-- Ends with a win or loss message
+## 🎮 Features
 
-## Getting Started
+- Loads a random word from a local file (`words.txt`)
+- 8 chances to guess the word
+- Shows available letters and current progress
+- Detects invalid or repeated input
+- Clean and minimal terminal interface
 
-### Prerequisites
+---
 
-- A file named `words.txt` placed inside the `src/` directory, containing space-separated words
+## 🛠 How to Run
 
+1. Clone this repository or copy the code into your project.
+2. Make sure the file `src/words.txt` exists and contains words separated by spaces or new lines.
+3. Compile and run the `Main.java` file:
 
+```bash
+javac Main.java
+java Main
