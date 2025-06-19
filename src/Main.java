@@ -19,13 +19,15 @@ public class Main {
 
         int guessCount = 8;
 
-        String availableLetters;
+        String availableLetters = "";
         String guessedWord = "";
         String lettersGuessed = "";
 
         Scanner sc = new Scanner(System.in);
 
         while (true) {
+            HangmanDrawing.draw(guessCount);
+
             availableLetters = getAvailableLetters(lettersGuessed);
             System.out.println("-------------");
             System.out.printf("You have %d guesses left.\n", guessCount);
@@ -36,18 +38,19 @@ public class Main {
 
             if (!Character.isAlphabetic(letter.charAt(0))) {
                 System.out.printf("Oops! '%s' is not a valid letter: ", letter);
+                guessedWord = getGuessedWord(secret, lettersGuessed);
                 printGuessedWord(guessedWord);
                 continue;
             }
 
             if (lettersGuessed.contains(letter)) {
                 System.out.print("Oops! You've already guessed that letter: ");
+                guessedWord = getGuessedWord(secret, lettersGuessed);
                 printGuessedWord(guessedWord);
                 continue;
             }
 
             lettersGuessed += letter;
-
             guessedWord = getGuessedWord(secret, lettersGuessed);
 
             if (secret.contains(letter)) {
@@ -63,6 +66,7 @@ public class Main {
                 printGuessedWord(guessedWord);
                 guessCount--;
                 if (guessCount == 0) {
+                    HangmanDrawing.draw(guessCount);
                     System.out.println("-------------");
                     System.out.printf("Sorry, you ran out of guesses. The word was %s.\n", secret);
                     break;
