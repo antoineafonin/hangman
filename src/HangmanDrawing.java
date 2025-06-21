@@ -99,7 +99,7 @@ public class HangmanDrawing {
                     |      \\O/
                     |       |
                     |      / \\
-                    |
+                    |       
                     |
                     |
                     |_________
