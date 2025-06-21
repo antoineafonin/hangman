@@ -25,8 +25,8 @@ public class HangmanGame {
             System.out.print("Please guess a letter: ");
             String letter = sc.next().toLowerCase();
 
-            if (!Character.isAlphabetic(letter.charAt(0))) {
-                System.out.printf("Oops! '%s' is not a valid letter: ", letter);
+            if (!(letter.charAt(0) >= 'a' && letter.charAt(0) <= 'z')) {
+                System.out.printf("Oops! '%s' is not a valid letter. Please enter an English letter: ", letter);
                 guessedWord = getGuessedWord(secret, lettersGuessed);
                 printGuessedWord(guessedWord);
                 continue;
