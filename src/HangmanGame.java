@@ -1,7 +1,9 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class HangmanGame {
-    public static void hangman(String secret) {
+    public static void gameLoop(String secret) {
         int secretLen = secret.length();
         System.out.println("Welcome to the game, Hangman!");
         System.out.printf("I am thinking of a word that is %d letters long.\n", secretLen);
@@ -11,6 +13,7 @@ public class HangmanGame {
         String availableLetters = "";
         String guessedWord = "";
         String lettersGuessed = "";
+        ArrayList<String> usedLetters = new ArrayList<>();
 
         Scanner sc = new Scanner(System.in);
 
@@ -23,7 +26,11 @@ public class HangmanGame {
             System.out.printf("Available letters: %s\n", availableLetters);
 
             System.out.print("Please guess a letter: ");
+
             String letter = sc.next().toLowerCase();
+            usedLetters.add(letter);
+
+            System.out.println("Letters you used: " + usedLetters);
 
             if (!(letter.charAt(0) >= 'a' && letter.charAt(0) <= 'z')) {
                 System.out.printf("Oops! '%s' is not a valid letter. Please enter an English letter: ", letter);
@@ -114,4 +121,6 @@ public class HangmanGame {
         }
         return availableLettersBuilder.toString();
     }
+
+
 }

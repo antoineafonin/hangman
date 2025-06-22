@@ -4,6 +4,6 @@ public class Main {
         String secret = WordChoice.getRandomWord();
 
         assert secret != null;
-        HangmanGame.hangman(secret);
+        HangmanGame.gameLoop(secret);
     }
 }
