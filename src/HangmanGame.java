@@ -7,7 +7,7 @@ public class HangmanGame {
         System.out.println("Welcome to the game, Hangman!");
         System.out.printf("I am thinking of a word that is %d letters long.\n", secretLen);
 
-        int guessCount = 0;
+        int state = 0;
 
         String availableLetters = "";
         String guessedWord = "";
@@ -17,11 +17,8 @@ public class HangmanGame {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
-            HangmanDrawing.draw(guessCount);
-
             availableLetters = getAvailableLetters(lettersGuessed);
             System.out.println("-------------");
-            System.out.printf("You have %d guesses left.\n", guessCount);
             System.out.printf("Available letters: %s\n", availableLetters);
 
             System.out.print("Please guess a letter: ");
@@ -29,7 +26,7 @@ public class HangmanGame {
             String letter = sc.next().toLowerCase();
             printUsedWords(letter, usedLetters);
 
-            if (isLetterIncorrect(secret, letter, guessedWord, lettersGuessed)) {
+            if (isLetterIncorrect(letter, guessedWord, lettersGuessed)) {
                 continue;
             }
 
@@ -55,9 +52,11 @@ public class HangmanGame {
             } else {
                 System.out.print("Oops! That letter is not in my word: ");
                 printGuessedWord(guessedWord);
-                guessCount++;
-                if (guessCount == 8) {
-                    HangmanDrawing.draw(guessCount);
+                state++;
+                HangmanDrawing.draw(state);
+
+                System.out.println("Your state: " + state);
+                if (state == 7) {
                     System.out.println("-------------");
                     System.out.printf("Sorry, you ran out of guesses. The word was %s.\n", secret);
                     break;
@@ -66,7 +65,7 @@ public class HangmanGame {
         }
     }
 
-    private static boolean isLetterIncorrect(String secret, String letter, String guessedWord, String lettersGuessed) {
+    private static boolean isLetterIncorrect(String letter, String guessedWord, String lettersGuessed) {
         if (!(letter.charAt(0) >= 'a' && letter.charAt(0) <= 'z')) {
             System.out.printf("Oops! '%s' is not a valid letter. Please enter an English letter: ", letter);
 

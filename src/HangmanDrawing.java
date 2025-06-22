@@ -1,16 +1,5 @@
 public class HangmanDrawing {
-    private static final         String[] hangmanStates = {
-            """
-        ---------
-        |       |
-        |
-        |
-        |
-        |
-        |
-        |
-        |_________
-        """,
+    private static final String[] hangmanStates = {
             """
         ---------
         |       |
@@ -91,17 +80,17 @@ public class HangmanDrawing {
             """
         ---------
         |       |
-        |       O
-        |      /|\\
+        |      \\O/
+        |       |
         |      / \\
-        |     DEAD
+        |      DEAD
         |
         |
         |_________
         """
     };
 
-    public static void draw(int guessCount) {
-        System.out.println(hangmanStates[guessCount]);
+    public static void draw(int state) {
+        System.out.println(hangmanStates[state]);
     }
 }
