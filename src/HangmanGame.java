@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class HangmanGame {
-    public static void gameLoop(String secret) {
+    public static void start(String secret) {
         int secretLen = secret.length();
         System.out.println("Welcome to the game, Hangman!");
         System.out.printf("I am thinking of a word that is %d letters long.\n", secretLen);
