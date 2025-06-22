@@ -29,16 +29,7 @@ public class HangmanGame {
             String letter = sc.next().toLowerCase();
             printUsedWords(letter, usedLetters);
 
-
-            if (!(letter.charAt(0) >= 'a' && letter.charAt(0) <= 'z')) {
-                System.out.printf("Oops! '%s' is not a valid letter. Please enter an English letter: ", letter);
-
-                printGuessedWord(guessedWord);
-                continue;
-            }
-
-            if (letter.length() > 1) {
-                System.out.println("Please enter one letter");
+            if (isLetterIncorrect(secret, letter, guessedWord, lettersGuessed)) {
                 continue;
             }
 
@@ -73,6 +64,22 @@ public class HangmanGame {
                 }
             }
         }
+    }
+
+    private static boolean isLetterIncorrect(String secret, String letter, String guessedWord, String lettersGuessed) {
+        if (!(letter.charAt(0) >= 'a' && letter.charAt(0) <= 'z')) {
+            System.out.printf("Oops! '%s' is not a valid letter. Please enter an English letter: ", letter);
+
+            printGuessedWord(guessedWord);
+            return true;
+        }
+
+        if (letter.length() > 1) {
+            System.out.println("Please enter one letter");
+            return true;
+        }
+
+        return false;
     }
 
     private static void printGuessedWord(String word) {
