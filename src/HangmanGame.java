@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class HangmanGame {
@@ -28,14 +27,18 @@ public class HangmanGame {
             System.out.print("Please guess a letter: ");
 
             String letter = sc.next().toLowerCase();
-            usedLetters.add(letter);
+            printUsedWords(letter, usedLetters);
 
-            System.out.println("Letters you used: " + usedLetters);
 
             if (!(letter.charAt(0) >= 'a' && letter.charAt(0) <= 'z')) {
                 System.out.printf("Oops! '%s' is not a valid letter. Please enter an English letter: ", letter);
-                guessedWord = getGuessedWord(secret, lettersGuessed);
+
                 printGuessedWord(guessedWord);
+                continue;
+            }
+
+            if (letter.length() > 1) {
+                System.out.println("Please enter one letter");
                 continue;
             }
 
@@ -51,6 +54,7 @@ public class HangmanGame {
 
             if (secret.contains(letter)) {
                 System.out.print("Good guess: ");
+                guessedWord = getGuessedWord(secret, lettersGuessed);
                 printGuessedWord(guessedWord);
 
                 if (isWordGuessed(secret, lettersGuessed)) {
@@ -71,7 +75,7 @@ public class HangmanGame {
         }
     }
 
-    public static void printGuessedWord(String word) {
+    private static void printGuessedWord(String word) {
         for (int i = 0; i < word.length(); i++) {
             System.out.printf(" %c", word.charAt(i));
         }
@@ -79,7 +83,7 @@ public class HangmanGame {
     }
 
 
-    public static boolean isWordGuessed(String secret, String lettersGuessed) {
+    private static boolean isWordGuessed(String secret, String lettersGuessed) {
         int found = 0;
 
         for (int i = 0; i < secret.length(); i++) {
@@ -94,7 +98,7 @@ public class HangmanGame {
         return found >= secret.length();
     }
 
-    public static String getGuessedWord(String secret, String lettersGuessed) {
+    private static String getGuessedWord(String secret, String lettersGuessed) {
         int secretLen = secret.length();
 
         StringBuilder guessedWordBuilder = new StringBuilder("_".repeat(secretLen));
@@ -110,7 +114,7 @@ public class HangmanGame {
         return guessedWordBuilder.toString();
     }
 
-    public static String getAvailableLetters(String lettersGuessed) {
+    private static String getAvailableLetters(String lettersGuessed) {
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
 
         StringBuilder availableLettersBuilder = new StringBuilder();
@@ -122,5 +126,11 @@ public class HangmanGame {
         return availableLettersBuilder.toString();
     }
 
-
+    private static void printUsedWords(String letter, ArrayList<String> usedLetters) {
+        if (letter.length() > 1 || !(letter.charAt(0) >= 'a' && letter.charAt(0) <= 'z')) {
+            return;
+        }
+        usedLetters.add(letter);
+        System.out.println("Letters you used: " + usedLetters);
+    }
 }
