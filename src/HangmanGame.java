@@ -7,7 +7,7 @@ public class HangmanGame {
         System.out.println("Welcome to the game, Hangman!");
         System.out.printf("I am thinking of a word that is %d letters long.\n", secretLen);
 
-        int guessCount = 8;
+        int guessCount = 0;
 
         String availableLetters = "";
         String guessedWord = "";
@@ -55,8 +55,8 @@ public class HangmanGame {
             } else {
                 System.out.print("Oops! That letter is not in my word: ");
                 printGuessedWord(guessedWord);
-                guessCount--;
-                if (guessCount == 0) {
+                guessCount++;
+                if (guessCount == 8) {
                     HangmanDrawing.draw(guessCount);
                     System.out.println("-------------");
                     System.out.printf("Sorry, you ran out of guesses. The word was %s.\n", secret);

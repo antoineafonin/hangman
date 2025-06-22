@@ -1,7 +1,6 @@
 public class HangmanDrawing {
-    public static void draw(int guessCount) {
-        String[] hangmanStates = {
-                """
+    private static final         String[] hangmanStates = {
+            """
         ---------
         |       |
         |
@@ -12,21 +11,21 @@ public class HangmanDrawing {
         |
         |_________
         """,
-                """
-        ---------
-        |       |
-        |       O
-        |
-        |
-        |
-        |
-        |
-        |_________
-        """,
-                """
+            """
         ---------
         |       |
         |       O
+        |
+        |
+        |
+        |
+        |
+        |_________
+        """,
+            """
+        ---------
+        |       |
+        |       O
         |       |
         |
         |
@@ -34,7 +33,7 @@ public class HangmanDrawing {
         |
         |_________
         """,
-                """
+            """
         ---------
         |       |
         |       O
@@ -45,7 +44,7 @@ public class HangmanDrawing {
         |
         |_________
         """,
-                """
+            """
         ---------
         |       |
         |       O
@@ -56,7 +55,7 @@ public class HangmanDrawing {
         |
         |_________
         """,
-                """
+            """
         ---------
         |       |
         |       O
@@ -67,7 +66,7 @@ public class HangmanDrawing {
         |
         |_________
         """,
-                """
+            """
         ---------
         |       |
         |       O
@@ -78,7 +77,7 @@ public class HangmanDrawing {
         |
         |_________
         """,
-                """
+            """
         ---------
         |       |
         |      \\O/
@@ -89,7 +88,7 @@ public class HangmanDrawing {
         |
         |_________
         """,
-                """
+            """
         ---------
         |       |
         |       O
@@ -100,13 +99,9 @@ public class HangmanDrawing {
         |
         |_________
         """
-        };
+    };
 
-        if (guessCount >= 0 && guessCount <= 8) {
-            System.out.println(hangmanStates[8 - guessCount]);
-        } else {
-            System.out.println("Invalid guess count");
-        }
-
+    public static void draw(int guessCount) {
+        System.out.println(hangmanStates[guessCount]);
     }
 }
