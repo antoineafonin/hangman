@@ -7,6 +7,7 @@ public class Main {
             System.out.println("The program is forced to suspend its work. Bye, Pinocchios.");
             return;
         }
+
         HangmanGame.start(secret);
     }
 }

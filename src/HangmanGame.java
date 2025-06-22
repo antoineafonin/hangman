@@ -9,7 +9,6 @@ public class HangmanGame {
 
         int state = 0;
 
-        String availableLetters = "";
         String guessedWord = "";
         String lettersGuessed = "";
         ArrayList<String> usedLetters = new ArrayList<>();
@@ -17,14 +16,11 @@ public class HangmanGame {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
-            availableLetters = getAvailableLetters(lettersGuessed);
             System.out.println("-------------");
-            System.out.printf("Available letters: %s\n", availableLetters);
 
             System.out.print("Please guess a letter: ");
 
             String letter = sc.next().toLowerCase();
-            printUsedWords(letter, usedLetters);
 
             if (isLetterIncorrect(letter, guessedWord, lettersGuessed)) {
                 continue;
@@ -54,14 +50,13 @@ public class HangmanGame {
                 printGuessedWord(guessedWord);
                 state++;
                 HangmanDrawing.draw(state);
-
-                System.out.println("Your state: " + state);
                 if (state == 7) {
                     System.out.println("-------------");
                     System.out.printf("Sorry, you ran out of guesses. The word was %s.\n", secret);
                     break;
                 }
             }
+            printUsedWords(letter, usedLetters);
         }
     }
 
@@ -118,18 +113,6 @@ public class HangmanGame {
         }
 
         return guessedWordBuilder.toString();
-    }
-
-    private static String getAvailableLetters(String lettersGuessed) {
-        String alphabet = "abcdefghijklmnopqrstuvwxyz";
-
-        StringBuilder availableLettersBuilder = new StringBuilder();
-        for (int i = 0; i < alphabet.length(); i++) {
-            if (lettersGuessed.indexOf(alphabet.charAt(i)) == -1) {
-                availableLettersBuilder.append(alphabet.charAt(i));
-            }
-        }
-        return availableLettersBuilder.toString();
     }
 
     private static void printUsedWords(String letter, ArrayList<String> usedLetters) {
