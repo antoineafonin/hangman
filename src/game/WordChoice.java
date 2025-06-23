@@ -39,7 +39,7 @@ public class WordChoice {
         if (allWords.isEmpty()) {
             System.out.println("File is empty");
 
-            System.exit(1);
+            System.exit(0);
         }
 
         int randomIndex = (int) (Math.random() * allWords.size());
