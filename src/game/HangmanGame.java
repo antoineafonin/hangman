@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class HangmanGame {
+    public static boolean isGameFinished = false;
     public static void start(String secret) {
-        int secretLen = secret.length();
-        System.out.println("Welcome to the game, Hangman!");
-        System.out.printf("I am thinking of a word that is %d letters long.\n", secretLen);
-
         int state = 0;
 
         String guessedWord = "";
@@ -45,6 +42,7 @@ public class HangmanGame {
 
                 if (isWordGuessed(secret, lettersGuessed)) {
                     System.out.println("Congratulations, you won!");
+                    HangmanGame.isGameFinished = true;
                     break;
                 }
             } else {
@@ -55,6 +53,7 @@ public class HangmanGame {
                 if (state == 7) {
                     System.out.println("-------------");
                     System.out.printf("Sorry, you ran out of guesses. The word was %s.\n", secret);
+                    HangmanGame.isGameFinished = true;
                     break;
                 }
             }

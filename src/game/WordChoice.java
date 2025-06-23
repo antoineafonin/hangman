@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class WordChoice {
     private static final String filePath = "data/words.txt";
+
     public static String getRandomWord() {
         ArrayList<String> allWords = new ArrayList<>();
 
