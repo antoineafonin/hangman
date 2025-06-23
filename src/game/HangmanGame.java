@@ -101,20 +101,19 @@ public class HangmanGame {
     }
 
     private static String getGuessedWord(String secret, String lettersGuessed) {
-        int secretLen = secret.length();
+        StringBuilder mask = new StringBuilder("_".repeat(secret.length()));
 
-        StringBuilder guessedWordBuilder = new StringBuilder("_".repeat(secretLen));
-
-        for (int i = 0; i < secretLen; i++) {
-            char secretChar = secret.charAt(i);
-
-            if (lettersGuessed.indexOf(secretChar) >= 0) {
-                guessedWordBuilder.setCharAt(i, secretChar);
+        for (char guessedLetter : lettersGuessed.toCharArray()) {
+            for (int i = 0; i < secret.length(); i++) {
+                if (secret.charAt(i) == guessedLetter) {
+                    mask.setCharAt(i, guessedLetter);
+                }
             }
         }
 
-        return guessedWordBuilder.toString();
+        return mask.toString();
     }
+
 
     private static void printUsedWords(String letter, ArrayList<String> usedLetters) {
         if (letter.length() > 1 || !(letter.charAt(0) >= 'a' && letter.charAt(0) <= 'z')) {
