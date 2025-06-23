@@ -1,3 +1,5 @@
+package game;
+
 public class HangmanDrawing {
     private static final String[] hangmanStates = {
             """

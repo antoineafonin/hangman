@@ -19,8 +19,8 @@ It selects a random word from a `words.txt` file and allows the user to guess th
 
 1. Clone this repository or copy the code into your project.
 2. Make sure the file `src/words.txt` exists and contains words separated by spaces or new lines.
-3. Compile and run the `Main.java` file:
+3. Compile and run the `main.Main.java` file:
 
 ```bash
-javac Main.java
-java Main
+javac main.Main.java
+java main.Main

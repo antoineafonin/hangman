@@ -1,3 +1,5 @@
+package game;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -5,7 +7,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class WordChoice {
-    private static final String filePath = "src/words.txt";
+    private static final String filePath = "data/words.txt";
     public static String getRandomWord() {
         ArrayList<String> allWords = new ArrayList<>();
 
