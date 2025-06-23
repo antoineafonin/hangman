@@ -14,7 +14,7 @@ public class Main {
             System.out.println("The program is forced to suspend its work. Bye, Pinocchios.");
             return;
         }
-
+        System.out.println(secret);
         int secretLen = secret.length();
         System.out.println("Welcome to the game, Hangman!");
         System.out.printf("I am thinking of a word that is %d letters long.\n", secretLen);
@@ -23,19 +23,28 @@ public class Main {
             HangmanGame.start(secret);
 
             if (HangmanGame.isGameFinished) {
-                System.out.println("Do you want to play one more time?[yes/no]");
-                System.out.print("Your answer: ");
-                String answer = sc.next().toLowerCase();
+                String answer;
 
-                if (answer.equals("yes")) {
-                    HangmanGame.isGameFinished = false;
-                } else {
-                    System.out.println("Thanks for the game. See you next time");
-                    sc.close();
-                    System.exit(1);
+                while (true) {
+                    System.out.println("Do you want to play one more time? [yes/no]");
+                    System.out.print("Your answer: ");
+                    answer = sc.next().toLowerCase();
+
+                    if (answer.equals("yes")) {
+                        System.out.println("Let's play one more time!");
+                        HangmanGame.isGameFinished = false;
+                        break;
+                    } else if (answer.equals("no")) {
+                        System.out.println("Thanks for the game. See you next time!");
+                        sc.close();
+                        System.exit(0);
+                    } else {
+                        System.out.println("Oops! That answer isn't valid. Please type 'yes' or 'no'.");
+                    }
                 }
             }
         }
+
 
     }
 }
