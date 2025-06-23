@@ -27,17 +27,17 @@ public class HangmanGame {
 
             if (lettersGuessed.contains(letter)) {
                 System.out.print("Oops! You've already guessed that letter: ");
-                guessedWord = getGuessedWord(secret, lettersGuessed);
+                guessedWord = generateMaskedWord(secret, lettersGuessed);
                 printGuessedWord(guessedWord);
                 continue;
             }
 
             lettersGuessed += letter;
-            guessedWord = getGuessedWord(secret, lettersGuessed);
+            guessedWord = generateMaskedWord(secret, lettersGuessed);
 
             if (secret.contains(letter)) {
                 System.out.print("Good guess: ");
-                guessedWord = getGuessedWord(secret, lettersGuessed);
+                guessedWord = generateMaskedWord(secret, lettersGuessed);
                 printGuessedWord(guessedWord);
 
                 if (isWordGuessed(secret, lettersGuessed)) {
@@ -100,7 +100,7 @@ public class HangmanGame {
         return found >= secret.length();
     }
 
-    private static String getGuessedWord(String secret, String lettersGuessed) {
+    private static String generateMaskedWord(String secret, String lettersGuessed) {
         StringBuilder mask = new StringBuilder("_".repeat(secret.length()));
 
         for (char guessedLetter : lettersGuessed.toCharArray()) {
