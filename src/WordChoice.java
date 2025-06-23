@@ -5,11 +5,12 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class WordChoice {
+    private static final String filePath = "src/words.txt";
     public static String getRandomWord() {
         ArrayList<String> allWords = new ArrayList<>();
 
         try {
-            File wordsFile = new File("src/words.txt");
+            File wordsFile = new File(filePath);
             Scanner reader = new Scanner(wordsFile);
 
             while (reader.hasNextLine()) {
@@ -22,14 +23,20 @@ public class WordChoice {
             }
 
             reader.close();
+
+
         } catch (FileNotFoundException e) {
-            System.out.println("An error has occurred.");
-            e.printStackTrace();
+            System.out.println("""
+                    The system cannot find the specified file
+                    Game cannot start\s
+                    Sorry bye
+                   \s""");
         }
 
         if (allWords.isEmpty()) {
-            System.out.println("File is empty.");
-            return null;
+            System.out.println("File is empty");
+
+            System.exit(1);
         }
 
         int randomIndex = (int) (Math.random() * allWords.size());
